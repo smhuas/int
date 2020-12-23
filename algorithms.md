@@ -1,0 +1,1 @@
+1) Write an algorithm that takes a list and shuffles all the elements in it randomly. Do it in-place.
