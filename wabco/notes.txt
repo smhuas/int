@@ -1,0 +1,140 @@
+1) unique_lock vs lock_guard<>
+    both works on mutex lock only. when mutex goes out of scope, lock is released automatically. 
+    unique_lock() lock can unlock before the mutex goes out of scope, whereas lock_guard cannot do it.
+
+2) what is std::atomic ?
+3) static_cast, dynamic_cast, reinterpret_cast, const_cast
+    upcasting           --> derived to base
+    downcasting         --> base to derived
+    static_cast         --> it does up and downcasting without checking.
+    dynamic_cast        --> it does downcasting and checks if classes are polymorphic or not(virtual should be present in class).
+    reinterpret_cast    --> it can cast any pointer type to another pointer type. dangerous to use.
+    const_cast          --> it is used to change constantness of the object. 
+4) what is perfect forwarding ?
+    when forwarding rvalue references from function to another function, rvalue references are changed to lvalue references. 
+    to avaoid this std::forward<>() is used to forward the rvalue references. 
+    This concept is also known as perfect forwarding.
+5) std::bind
+    void func(int x, int y, int z){}
+    auto f = std::bind(func,10,20,30); // also use placeholders
+    f();
+6) how std::move works.
+    std::move(x) just adds rvalue reference to the value x by typecasting with std::remove_reference<T>::type&&.
+    auto std::move(T x)
+    {
+        return static_cast<std::remove_reference<T>::type&&>(x);
+    }    
+7) constexpr vs const 
+    constexpr variables must be initialized at compile-time
+    initialization of const variables can be deffered to run-time
+    constexpr can also be applied to class construtors(const cannot do this)
+
+    int sz;
+    const int arraySize = sz;       // works
+    constexpr int arraySize = sz;   // doesn't work
+
+
+8) how is vector different than array.
+    no need to know size of the array.
+    it is also contiguous memory.
+    when it is used for very big data, need to precisely plan the size of the vector.
+
+9) how many memory segments are present
+    code segment    --> to store code and constant variables
+    data segment    --> to store static and global data members
+    stack segment   --> to store local variables
+    heap segment    --> to store dynamic memory
+
+10) semaphore
+    parent process
+        sem_open(SEM_NAME, O_CREAT | O_EXCL, 0666, 0);
+        sem_wait(sem);
+        debug_info("parent wait succedd\n");
+        sem_post(sem);
+        sem_close(sem);
+        sem_unlink(SEM_NAME);
+    
+    child process
+        sem = sem_open(SEM_NAME, 0);
+        sleep(1);
+        debug_info("child going to post\n");
+        sem_post(sem);
+
+11) Binary semaphore vs mutex
+    semaphore
+        Its functions based up on signalling mechanism
+        The thread which is having higher priority than current thread can also release binary semaphore and take lock.
+        Semaphore value is changed according to wait () and signal () operations.
+        Multiple number of threads can acquire binary semaphore at a time concurrently.
+        Binary semaphore have no ownership.
+        They are faster than mutex because any other thread/process can unlock binary semaphore.
+        If you have number of instances for resource it is better to use Binary semaphore.
+
+    mutex
+        Its functions based up on locking mechanism
+        The thread which has acquired mutex can only release Mutex when it exits from critical section.
+        Mutex values can be modified just as locked or unlocked.
+        Only one thread can acquire mutex at a time
+        There is ownership associated with mutex because only owner can release the lock.
+        They are slower than binary semaphores because only thread which has acquired must release the lock.
+        If you have single instance for resource it is better to use mutex.
+
+12) STL's and Big-O
+    unordered_map   --> implemented using hash functions
+    ordered_map     --> implemented using tree
+
+13) uml diagrams
+    class diagrams
+    sequence diagrams
+    component diagrams
+    use case diagrams
+
+14) oops ?
+    Abstraction
+        object is example of Abstraction. no matter what is the complexity of the class use object to make things work. using simple things to represent complexities. 
+    Encapsulation
+        keeping members under private, and give access to them by public methods is example of Encapsulation.
+    Inheritance
+    polymorphism
+
+15) why virtual destructor ?
+    in polymorphic classes, base and derived, if base destructor is not virtual, derived class destructor is not called when the object gets deleted.
+    to avoid this base class destructor is made virtual
+
+16) shared pointer
+    https://www.nextptr.com/tutorial/ta1358374985/shared_ptr-basics-and-internals-with-examples
+
+17) v cycle SDLC
+    requirement analysis
+    system design
+    Architectural design
+    module design
+    coding
+
+    unit testing 
+    integration testing 
+    system testing 
+    acceptance testing 
+
+18) design patterns
+    creational
+        Abstract factory
+        factory
+        singleton
+        prototype
+    structural
+    behavioral
+
+19) association, aggregation, composition
+    association 
+        two classes in a model communicate
+    aggregation
+        child exists even though parent dies
+    composition
+        child cannot exist when parent dies
+
+20) why to use make_shared() or make_unique()
+    old method :-
+        std::shared<int> *p(new int);
+    new method :- 
+        std::shared<int> *p = make_shared();
