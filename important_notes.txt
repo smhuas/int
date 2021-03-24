@@ -1,0 +1,6 @@
+1) std::accumulate
+    vector<int> v = {1,2,3,4};
+    std::accumulate(v.begin(),v.end(),0); // adds the vector range of values. not only adds it can do lot many things. check it out.
+2) std::multiplies<>()
+    this is a function object, it can be used as helper function in other stls like std::accumulate to multiply the range of values.    
+3) 
