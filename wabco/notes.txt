@@ -138,3 +138,7 @@
         std::shared<int> *p(new int);
     new method :- 
         std::shared<int> *p = make_shared();
+21) How to print function names in cout
+    __FUNCTION__        :- prints function names
+    __PRETTYFUNCTION__  :- prints funtion names with class names also
+    __LINE__            :- prints line number
