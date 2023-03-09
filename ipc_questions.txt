@@ -1,0 +1,25 @@
+1) Signals 
+   process 1 :- use kill(pid,signal_id);
+   process 2 :- signalhandler(signal_id);
+Short comings:-
+   Sending signal between related processes is easy. knowing pid of parent/child process is easy
+   sending signal between unrelated processes is difficult. /
+   extra code effort to know the pid of the process has to be taken into account.
+
+2)  shared memory 
+    process 1 :- create shared memory with key and attach it to the process. write the data to memory.
+    process 2 :- get the shared memory access with shared memory key which is already created. /
+                 attach the shared memory to the process. read the value from memory.
+Short comings:-
+    reader process cannot know when the data is available in the shared memory.
+    extra signalling mechanism to be implemented to achieve this.
+
+3)  Pipes 
+    process 1 :- child process
+    process 2 :- parent process
+Short comings:-
+    1) IPC happens only between related processes
+
+4)  Message Queues
+    
+    
